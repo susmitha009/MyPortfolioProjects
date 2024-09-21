@@ -9,7 +9,7 @@ SELECT *
 FROM CovidVaccinations;
 
 SELECT * 
-FROM PortfolioProject.dbo.CovidDeaths
+FROM PortfolioProject.dbo.CovidDeaths;
 
 SELECT * 
 FROM PortfolioProject..CovidDeaths
@@ -45,7 +45,7 @@ Order by location, date;
 
 SELECT location, date, total_cases, population, (CAST(total_cases AS FLOAT) / CAST(population AS FLOAT))*100 AS infection_percentage
 FROM PortfolioProject.dbo.CovidDeaths
-WHERE location like '%States%'
+WHERE location like '%States%';
 
 
 -- Identifying countries with the highest infection rates relative to their population size
@@ -53,7 +53,7 @@ WHERE location like '%States%'
 SELECT location, population, MAX(total_cases) AS highest_infection_count, MAX((CAST(total_cases AS FLOAT) / CAST(population AS FLOAT)))*100 AS percentage_population_infected
 FROM PortfolioProject.dbo.CovidDeaths
 GROUP BY location, population
-ORDER BY percentage_population_infected DESC
+ORDER BY percentage_population_infected DESC;
 
 -- Identifying countries with the highest death count relative to their population size
 
@@ -63,7 +63,7 @@ FROM PortfolioProject.dbo.CovidDeaths
 -- to avoid incorrect entries like 'World' or misclassified continent names in the Location column
 WHERE continent IS NOT NULL
 GROUP BY location, population
-ORDER BY highest_deaths_count DESC
+ORDER BY highest_deaths_count DESC;
 
 
 -- BREAKING DATA DOWN BY CONTINENT
@@ -73,7 +73,7 @@ SELECT continent, MAX(total_deaths) AS highest_deaths_count
 FROM PortfolioProject.dbo.CovidDeaths
 WHERE continent IS NOT NULL
 GROUP BY continent
-ORDER BY highest_deaths_count DESC
+ORDER BY highest_deaths_count DESC;
 
 
 -- GLOBAL DAILY STATISTICS 
@@ -130,7 +130,7 @@ JOIN PortfolioProject.dbo.CovidVaccinations vaccines
 	ON deaths.location = vaccines.location 
 	and deaths.date = vaccines.date
 WHERE deaths.continent IS NOT NULL
-ORDER BY 2,3
+ORDER BY 2,3;
 
 
 -- This query calculates and shows the percentage of the population that has received at least one Covid vaccine.
@@ -194,5 +194,5 @@ FROM PortfolioProject.dbo.CovidDeaths deaths
 JOIN PortfolioProject.dbo.CovidVaccinations vaccines
 	ON deaths.location = vaccines.location 
 	and deaths.date = vaccines.date
-WHERE deaths.continent IS NOT NULL
+WHERE deaths.continent IS NOT NULL;
 
